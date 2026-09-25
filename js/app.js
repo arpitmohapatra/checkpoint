@@ -238,7 +238,7 @@ function viewHome() {
 
 function sampleAlias(list) {
   const p = list[0] && list[0].p;
-  if (!p) return 'dosa';
+  if (!p) return 'acme';
   return p.shortcut || (getClient(p.clientId)?.name || p.name).split(/\s+/)[0].toLowerCase().slice(0, 5);
 }
 
@@ -723,7 +723,7 @@ function wallNotes(all) {
   const items = all.filter((e) => ui.wallFilter === 'all' || e.tone === ui.wallFilter);
   if (!all.length) {
     const s = getState();
-    const alias = s.projects.length ? sampleAlias(projectsSorted()) : 'dosa';
+    const alias = s.projects.length ? sampleAlias(projectsSorted()) : 'acme';
     return `<div class="empty big"><p>No feedback yet. When a client says something, log it with <code>fb</code> — like <code>fb ${esc(alias)}: love the colors</code>.</p>
       ${s.projects.length ? `<button type="button" class="btn primary" data-action="log-feedback">${icons.plus()}Log feedback</button>` : ''}</div>`;
   }
@@ -780,10 +780,10 @@ function viewSettings() {
       <h2 class="h3">Quick capture</h2>
       <p class="muted">Type these in the box on the overview or in the palette (<kbd>⌘K</kbd> / <kbd>Ctrl K</kbd>).</p>
       <dl class="cheats">
-        <dt><code>dosa: completed theming</code></dt><dd>A checkpoint on the project matching “dosa” (its shortcut, name or client).</dd>
-        <dt><code>fb dosa: love the colors</code></dt><dd>Feedback from the project’s contact. Praise or change requests are detected for you.</dd>
+        <dt><code>acme: shipped the homepage</code></dt><dd>A checkpoint on the project matching “acme” (its shortcut, name or client).</dd>
+        <dt><code>fb acme: love the colors</code></dt><dd>Feedback from the project’s contact. Praise or change requests are detected for you.</dd>
         <dt><code>… @yesterday</code></dt><dd>Also <code>@mon</code>, <code>@3d</code>, <code>@sep 20</code>, <code>@2026-09-20</code>.</dd>
-        <dt><code>fb dosa: tweak the logo from Asha</code></dt><dd>Feedback from someone else.</dd>
+        <dt><code>fb acme: tweak the logo from Sam</code></dt><dd>Feedback from someone else.</dd>
       </dl>
       <p class="muted small">Keys: <kbd>L</kbd> log · <kbd>P</kbd> plant on this project · <kbd>R</kbd> recap · <kbd>D</kbd> dark mode · <kbd>⇧N</kbd> new project</p>
     </section>
@@ -1083,10 +1083,10 @@ function openProjectSheet(id) {
     <form class="proj-form" id="proj-form" autocomplete="off">
       <span class="grip" aria-hidden="true"></span>
       <div class="sheet-head"><h2 class="h2">${p ? 'Edit project' : 'New project'}</h2><button type="button" class="icon-btn" data-close aria-label="Close">${icons.close()}</button></div>
-      <label class="field"><span>Project name</span><input name="pname" required placeholder="Dosapoint Website" value="${esc(p ? p.name : '')}"></label>
+      <label class="field"><span>Project name</span><input name="pname" required placeholder="Acme Website" value="${esc(p ? p.name : '')}"></label>
       <div class="grid2">
-        <label class="field"><span>Client</span><input name="client" list="client-list" required placeholder="Dosapoint" value="${esc(client ? client.name : '')}"></label>
-        <label class="field"><span>Point of contact</span><input name="contact" placeholder="Shreesh" value="${esc(p ? p.contact : '')}"></label>
+        <label class="field"><span>Client</span><input name="client" list="client-list" required placeholder="Acme Co" value="${esc(client ? client.name : '')}"></label>
+        <label class="field"><span>Point of contact</span><input name="contact" placeholder="Alex" value="${esc(p ? p.contact : '')}"></label>
       </div>
       <datalist id="client-list">${s.clients.map((c) => `<option value="${esc(c.name)}">`).join('')}</datalist>
       <div class="field"><span>Client color</span>
@@ -1095,7 +1095,7 @@ function openProjectSheet(id) {
         </div>
       </div>
       <div class="grid2">
-        <label class="field"><span>Quick-capture shortcut</span><input name="shortcut" placeholder="dosa" value="${esc(p ? p.shortcut || '' : '')}" pattern="[A-Za-z0-9_-]*" title="Letters and numbers only"></label>
+        <label class="field"><span>Quick-capture shortcut</span><input name="shortcut" placeholder="acme" value="${esc(p ? p.shortcut || '' : '')}" pattern="[A-Za-z0-9_-]*" title="Letters and numbers only"></label>
         <label class="field"><span>Started</span><input name="startedAt" type="date" value="${p ? p.startedAt : todayISO()}"></label>
       </div>
       ${p ? `<div class="field"><span>Status</span>
@@ -1176,7 +1176,7 @@ function openPalette() {
       <label class="pal-input">
         ${icons.arrow(20)}
         <span class="sr">Type a command or quick log</span>
-        <input type="text" id="pal-q" placeholder="Jump to a project, run a command, or log — “fb dosa: loved it @yesterday”" autocomplete="off" spellcheck="false">
+        <input type="text" id="pal-q" placeholder="Jump to a project, run a command, or log — “fb acme: loved it @yesterday”" autocomplete="off" spellcheck="false">
       </label>
       <div class="pal-list" id="pal-list" role="listbox" aria-label="Results"></div>
       <div class="pal-foot"><span>↑↓ move</span><span>↵ run</span><span>fb … feedback</span><span>@date</span><span class="r">esc close</span></div>
