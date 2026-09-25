@@ -1,0 +1,24 @@
+{
+  "name": "Checkpoint",
+  "short_name": "Checkpoint",
+  "description": "Plant a flag for every bit of progress and keep every word of client feedback. Private and local-first.",
+  "id": "./",
+  "start_url": "./#/",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#ECECEE",
+  "theme_color": "#2F74B5",
+  "categories": ["productivity", "business"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Plant a checkpoint", "short_name": "Log", "url": "./?log=1#/", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Weekly recap", "short_name": "Recap", "url": "./#/recap", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
