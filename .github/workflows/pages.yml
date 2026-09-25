@@ -23,9 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Pages must be enabled once by a repo admin: Settings → Pages → Source: GitHub Actions.
+      # (The workflow token is not allowed to create the Pages site itself.)
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Assemble site
         run: |
