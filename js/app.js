@@ -124,6 +124,7 @@ document.addEventListener('click', (e) => {
   const act = a.dataset.action;
   if (act === 'palette') openPalette();
   else if (act === 'log') openLogSheet({ projectId: a.dataset.project || currentProjectId() });
+  else if (act === 'log-feedback') openLogSheet({ projectId: currentProjectId(), type: 'feedback' });
   else if (act === 'new-project') openProjectSheet();
   else if (act === 'recap') go('/recap');
 });
@@ -461,7 +462,7 @@ function onEntryEdit(e) {
 function logList(p, info) {
   const items = info.entries.filter((e) => ui.logFilter === 'all' || e.type === ui.logFilter);
   if (!items.length) {
-    return `<div class="empty">${info.entries.length ? 'Nothing in this filter yet.' : 'No entries yet.'}
+    return `<div class="empty"><p>${info.entries.length ? 'Nothing in this filter yet.' : 'No entries yet.'}</p>
       <button type="button" class="btn ghost sm" data-action="log" data-project="${p.id}">${icons.plus()}Plant a checkpoint</button></div>`;
   }
   return `<ol class="entries">${items.map((e, i) => entryRow(e, i === items.length - 1)).join('')}
@@ -637,10 +638,10 @@ function ledgerList() {
     return [e.text, e.from, p.name, p.contact, c && c.name].some((v) => v && v.toLowerCase().includes(q));
   });
   if (!s.entries.length) {
-    return `<div class="empty big">Your ledger is empty. Every checkpoint and every bit of feedback lands here.
+    return `<div class="empty big"><p>Your ledger is empty. Every checkpoint and every bit of feedback lands here.</p>
       ${s.projects.length ? `<button type="button" class="btn primary" data-action="log">${icons.plus()}Log the first one</button>` : `<button type="button" class="btn primary" data-action="new-project">${icons.plus()}Start a project</button>`}</div>`;
   }
-  if (!items.length) return `<div class="empty">Nothing matches that.</div>`;
+  if (!items.length) return `<div class="empty"><p>Nothing matches that.</p></div>`;
   const groups = [];
   for (const e of items) {
     const key = e.date.slice(0, 7);
@@ -721,9 +722,12 @@ const shorten = (s, n) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '
 function wallNotes(all) {
   const items = all.filter((e) => ui.wallFilter === 'all' || e.tone === ui.wallFilter);
   if (!all.length) {
-    return `<div class="empty big">No feedback yet. When a client says something, log it with <code>fb</code> — like <code>fb dosa: love the colors</code>.</div>`;
+    const s = getState();
+    const alias = s.projects.length ? sampleAlias(projectsSorted()) : 'dosa';
+    return `<div class="empty big"><p>No feedback yet. When a client says something, log it with <code>fb</code> — like <code>fb ${esc(alias)}: love the colors</code>.</p>
+      ${s.projects.length ? `<button type="button" class="btn primary" data-action="log-feedback">${icons.plus()}Log feedback</button>` : ''}</div>`;
   }
-  if (!items.length) return `<div class="empty">Nothing here yet.</div>`;
+  if (!items.length) return `<div class="empty"><p>Nothing here yet.</p></div>`;
   const styles = ['n-paper', 'n-peach', 'n-blue'];
   const rot = [-2, 1.6, -0.8, 1.2, -1.4, 0.6];
   return items.map((e, i) => {
